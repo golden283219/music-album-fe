@@ -1,0 +1,83 @@
+{
+  "name": "music-album",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/bootstrap": "^4.3.1",
+    "@types/jest": "^24.0.0",
+    "@types/jwt-decode": "^2.2.1",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-helmet": "^5.0.15",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/react-scrollbar": "^0.5.1",
+    "@types/react-toast-notifications": "2.4.0",
+    "@types/reactstrap": "8.4.2",
+    "@types/redux": "^3.6.0",
+    "dotenv": "^8.2.0",
+    "redux-devtools-extension": "^2.13.8"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.27",
+    "@fortawesome/free-solid-svg-icons": "5.12.1",
+    "@fortawesome/react-fontawesome": "0.1.8",
+    "@types/react-google-recaptcha": "^1.1.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "env-cmd": "^10.1.0",
+    "html-react-parser": "^0.10.2",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-google-recaptcha": "^2.0.1",
+    "react-helmet": "^6.0.0",
+    "react-iframe": "^1.8.0",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "react-scrollarea": "^0.6.15",
+    "react-scrollbar": "^0.5.6",
+    "react-sound": "1.2.0",
+    "react-text-marquee": "^1.0.1",
+    "react-toast-notifications": "2.4.0",
+    "react-top-loading-bar": "^1.2.0",
+    "reactstrap": "8.4.1",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "env-cmd -f .env.development react-scripts build && yarn transform-index",
+    "start:com": "env-cmd -f .env.house-language.com react-scripts start",
+    "start:me": "env-cmd -f .env.house-language.me react-scripts start",
+    "build:com": "env-cmd -f .env.house-language.com react-scripts build && yarn transform-index",
+    "build:me": "env-cmd -f .env.house-language.me react-scripts build && yarn transform-index",
+    "transform-index": "py custom-scripts/transform-laravel-index.py",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
