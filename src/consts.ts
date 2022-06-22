@@ -6,6 +6,8 @@ export const scrollbarStyles = {
 
 export const albumCountPerPage = 40;
 export const trackCountPerPage = 50;
+export const artistCountPerPage = 40;
+export const labelCountPerPage = 40;
 
 export const previewLength = 150;
 

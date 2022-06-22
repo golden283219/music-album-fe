@@ -15,7 +15,15 @@ import ShowModeSwitcher from '../components/ShowModeSwitcher';
 export default function AllReleases() {
     const albums = useSelector(selectAllAlbumList);
     const tracks = useSelector(selectTracks);
-    let { publisherSlug, showMode, page, bpmlow, bpmhigh, key, genre, label, artist } = useParams();
+    let { publisherSlug, artistSlug, showMode, page, bpmlow, bpmhigh, key, genre, label, artist } = useParams();
+
+    let title = 'All releases';
+    if(publisherSlug){
+        title = albums[0]?.publisher.name;
+    }
+    if(artistSlug){
+        title = albums[0]?.artist.name;
+    }
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
     const pageCount = useSelector(selectPageCount);
@@ -39,12 +47,19 @@ export default function AllReleases() {
     }, [publisherSlug, dispatch]);
 
     useEffect(() => {
-        if (showMode === ShowMode.GRID) {
-            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage, publisherSlug || ''));
-        } else {
-            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage, publisherSlug || '', bpmlow, bpmhigh, key, genre, label, artist));
+        if (artistSlug !== undefined) {
+            dispatch(setShowMode(ShowMode.GRID));
         }
-    }, [showMode, publisherSlug, dispatch, currentPage]);
+    }, [artistSlug, dispatch]);
+
+    useEffect(() => {
+        
+        if (showMode === ShowMode.GRID) {
+            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage, publisherSlug || '', artistSlug || ''));
+        } else {
+            dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, publisherSlug || '', artistSlug || '', bpmlow, bpmhigh, key, genre, label, artist));
+        }
+    }, [showMode, publisherSlug, artistSlug, dispatch, currentPage]);
 
     useEffect(() => {
         window.scrollTo({top: 0});
@@ -53,7 +68,8 @@ export default function AllReleases() {
     return (
         <div className="page">
             <div className="d-flex">
-                <p className="page-title">{publisherSlug?albums[0]?.publisher.name:'All releases'}</p>
+                <p className="page-title">{title}
+                </p>
             </div>
             <ShowModeSwitcher/>
             { showMode === ShowMode.GRID?<AlbumsGridView albums={albums}/>:<TracksListView tracks={tracks}/> }

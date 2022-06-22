@@ -16,15 +16,15 @@ export default function TracksListView(props: Props) {
     let strLastDate = '';
 
     props.tracks.forEach(track => {
-        const strTrackDate = formatSimpleDate(track.created_at);
-        if (strLastDate !== strTrackDate) {
-            strLastDate = strTrackDate;
-            elmTracks.push(<div key={index++}>{strTrackDate}</div>);
-        }
-        if (lastGenreId !== track.category.id) {
-            lastGenreId = track.category.id;
-            elmTracks.push(<GenreTitleHeader category={track.category} key={index++}/>);
-        }
+        // const strTrackDate = formatSimpleDate(track.created_at);
+        // if (strLastDate !== strTrackDate) {
+        //     strLastDate = strTrackDate;
+        //     elmTracks.push(<div key={index++}>{strTrackDate}</div>);
+        // }
+        // if (lastGenreId !== track.category.id) {
+        //     lastGenreId = track.category.id;
+        //     elmTracks.push(<GenreTitleHeader category={track.category} key={index++}/>);
+        // }
         elmTracks.push(<ListTrackItem track={track} key={index++}/>);
     });
     return (

@@ -42,7 +42,7 @@ export default function GenresPage() {
     useEffect(() => {
         if (categorySlug === undefined) {
             dispatch(setShowMode(ShowMode.LIST));
-            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage, '', bpmlow, bpmhigh, key, genre, label, artist));
+            dispatch(requestTracks('',currentPage * trackCountPerPage, trackCountPerPage, '', '', bpmlow, bpmhigh, key, genre, label, artist));
         } else {
             if (showMode === ShowMode.LIST) {
                 dispatch(requestGenreTracks(categorySlug, currentPage * trackCountPerPage, trackCountPerPage));

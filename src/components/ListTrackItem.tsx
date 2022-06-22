@@ -39,7 +39,7 @@ export default function(props: IProps) {
             </Col>
             <Col sm="3" className="pr-1 d-flex">
                 <TrackDownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
-                <TrackDownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
+                <TrackDownloadButton track={ props.track } type={ MusicFileType.AIFF }/>
             </Col>
         </Row>
     );

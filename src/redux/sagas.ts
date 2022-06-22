@@ -6,13 +6,16 @@ import {
     apiFetchAllAlbums,
     apiFetchFeaturedAlbums,
     apiFetchGenreAlbums, apiFetchPickedAlbums,
-    apiFetchTopAlbums
+    apiFetchTopAlbums,
+    apiFetchAlbumSearch,
 } from '../api/AlbumAPI';
 import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
     CATEGORIES_REQUESTED,
     KEYS_REQUESTED,
+    ARTISTS_REQUESTED,
+    LABELS_REQUESTED,
     DOWNLOAD_ALBUM_REQUESTED,
     DOWNLOAD_TRACK_REQUESTED,
     FEATURED_ALBUMS_REQUESTED,
@@ -27,9 +30,15 @@ import {
     RequestGenreTracks,
     RequestLogin, RequestPickedAlbums, RequestPickedTracks,
     RequestSearch,
+    RequestAlbumSearch,
+    RequestArtistSearch,
+    RequestLabelSearch,
     RequestTrack,
     RequestTracks, requestUserInfo,
     SEARCH_REQUESTED,
+    SEARCH_ALBUM_REQUESTED,
+    SEARCH_ARTIST_REQUESTED,
+    SEARCH_LABEL_REQUESTED,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist, SET_ALBUM_BANDCAMP,
     SET_ALBUM_TOP, SET_ALBUM_VINYL,
@@ -37,6 +46,8 @@ import {
     setAllAlbums,
     setCategories,
     setKeys,
+    setArtists,
+    setLabels,
     setCurrentAlbumDetail,
     setCurrentPage,
     setCurrentTrack,
@@ -70,13 +81,15 @@ import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
 import { apiFetchKeys } from '../api/KeyAPI';
-import { albumCountPerPage, trackCountPerPage } from '../consts';
+import { apiFetchArtists, apiFetchArtistSearch } from '../api/ArtistAPI';
+import { apiFetchLabels, apiFetchLabelSearch } from '../api/LabelAPI';
+import { albumCountPerPage, trackCountPerPage, artistCountPerPage, labelCountPerPage } from '../consts';
 import { apiFetchUserInfo, apiLogin } from '../api/AuthAPI';
 
 function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
-        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.publisherSlug);
+        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.publisherSlug, action.artistSlug);
         yield put(setAllAlbums(albums));
         yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
         if (albums.length === 0) {
@@ -145,7 +158,7 @@ function* fetchFeaturedAlbums() {
 function* fetchTracks(action: RequestTracks) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
-        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisherSlug, action.title, action.bpmlow, action.bpmhigh, action.key, action.genre, action.label, action.artist);
+        const [tracks, trackCount] = yield call(apiFetchTracks, action.pickType, action.skip, action.limit, action.publisherSlug, action.artistSlug, action.title, action.bpmlow, action.bpmhigh, action.key, action.genre, action.label, action.artist);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
@@ -225,6 +238,20 @@ function* fetchKeys() {
     } catch (e) { }
 }
 
+function* fetchArtists() {
+    try {
+        const artists = yield call(apiFetchArtists);
+        yield put(setArtists(artists));
+    } catch (e) { }
+}
+
+function* fetchLabels() {
+    try {
+        const labels = yield call(apiFetchLabels);
+        yield put(setLabels(labels));
+    } catch (e) { }
+}
+
 function* downloadTrack(action: RequestDownloadTrack) {
     try {
         const [result, message] = yield call(apiDownloadTrack, action.trackSlug, action.fileType, 'check');
@@ -286,6 +313,54 @@ function* fetchSearch(action: RequestSearch) {
     } catch (e) {
         yield put(setTracks([]));
     }
+}
+
+function* fetchAlbumSearch(action: RequestAlbumSearch) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const [albums, albumCount, searchModeValue] = yield call(apiFetchAlbumSearch, action.skip, action.limit, action.keyword);
+        yield put(setAllAlbums(albums));
+        yield put(setPageCount(Math.ceil(albumCount / trackCountPerPage)));
+        if (albums.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+        yield put(setLoadingState(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setAllAlbums([]));
+    }
+
+}
+
+function* fetchArtistSearch(action: RequestArtistSearch) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const [artists, artistCount, searchModeValue] = yield call(apiFetchArtistSearch, action.skip, action.limit, action.keyword);
+        yield put(setArtists(artists));
+        yield put(setPageCount(Math.ceil(artistCount / artistCountPerPage)));
+        if (artists.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+        yield put(setLoadingState(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setArtists([]));
+    }
+
+}
+
+function* fetchLabelSearch(action: RequestLabelSearch) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const [labels, labelCount, searchModeValue] = yield call(apiFetchLabelSearch, action.skip, action.limit, action.keyword);
+        yield put(setLabels(labels));
+        yield put(setPageCount(Math.ceil(labelCount / labelCountPerPage)));
+        if (labels.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+        yield put(setLoadingState(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setLabels([]));
+    }
+
 }
 
 function* setAlbumTop(action: SetAlbumTop) {
@@ -355,9 +430,14 @@ function* appSaga() {
     yield takeLatest(DOWNLOAD_ALBUM_REQUESTED, downloadAlbum);
     yield takeLatest(USER_INFO_REQUESTED, fetchUserInfo);
     yield takeLatest(SEARCH_REQUESTED, fetchSearch);
+    yield takeLatest(SEARCH_ALBUM_REQUESTED, fetchAlbumSearch);
     yield takeLatest(SET_ALBUM_TOP, setAlbumTop);
     yield takeLatest(SET_ALBUM_VINYL, setAlbumVinyl);
     yield takeLatest(SET_ALBUM_BANDCAMP, setAlbumBandcamp);
+    yield takeLatest(ARTISTS_REQUESTED, fetchArtists);
+    yield takeLatest(SEARCH_ARTIST_REQUESTED, fetchArtistSearch);
+    yield takeLatest(LABELS_REQUESTED, fetchLabels);
+    yield takeLatest(SEARCH_LABEL_REQUESTED, fetchLabelSearch);
 }
 
 export default appSaga;

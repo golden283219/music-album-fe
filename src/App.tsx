@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import Genres from './pages/Genres';
 import AllReleases from './pages/AllReleases';
 import AlbumPage from './pages/AlbumPage';
-import { requestCategories, requestkeys, setHasDownloadError } from './redux/actions';
+import { requestCategories, requestkeys, requestLabels, requestArtists, setHasDownloadError } from './redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import PremiumPage from './pages/Premium';
 import AccountPage from './pages/Account';
@@ -42,6 +42,8 @@ export default function App() {
   useEffect(() => {
     dispatch(requestCategories());
     dispatch(requestkeys());
+    //dispatch(requestArtists());
+    //dispatch(requestLabels());
   });
   useEffect(() => {
     if (loadingState === LoadingState.LOADING) {
@@ -78,7 +80,10 @@ export default function App() {
           <Route path="/bandcamp/s/:showMode/p/:page">
             <PickedReleases type='bandcamp'/>
           </Route>
-          <Route path="/all-releases/:publisherSlug/s/:showMode/p/:page">
+          <Route path="/all-releases/label/:publisherSlug/s/:showMode/p/:page">
+            <AllReleases/>
+          </Route>
+          <Route path="/all-releases/artist/:artistSlug/s/:showMode/p/:page">
             <AllReleases/>
           </Route>
           <Route path="/album/:slug">

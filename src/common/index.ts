@@ -40,7 +40,6 @@ export const composeWaveformImagePath = (albumLocation?: string, trackSlug?: str
 };
 
 export function composeTrackName(track?: Track, artist?: Artist) {
-    console.log(track)
     if (artist === undefined) {
         return `${track?.artist?.name} - ${track?.title}`.replace('&amp;', '&');
     }

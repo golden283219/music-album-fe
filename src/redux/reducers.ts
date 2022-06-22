@@ -6,6 +6,8 @@ import {
     SET_ALL_ALBUMS,
     SET_CATEGORIES,
     SET_KEYS,
+    SET_ARTISTS,
+    SET_LABELS,
     SET_CURRENT_ALBUM_DETAIL,
     SET_CURRENT_PAGE,
     SET_CURRENT_TRACK,
@@ -83,6 +85,12 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_KEYS: {
             return Object.assign({}, state, {...state, keys: action.keys});
+        }
+        case SET_ARTISTS: {
+            return Object.assign({}, state, {...state, artists: action.artists});
+        }
+        case SET_LABELS: {
+            return Object.assign({}, state, {...state, labels: action.labels});
         }
         case SET_MUTED: {
             return Object.assign({}, state, {...state, muted: action.muted});

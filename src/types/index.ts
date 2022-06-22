@@ -1,6 +1,7 @@
 export enum MusicFileType {
     FLAC = 'flac',
-    MP3 = 'mp3'
+    MP3 = 'mp3',
+    AIFF = 'aiff',
 }
 
 export interface UserInfo {
