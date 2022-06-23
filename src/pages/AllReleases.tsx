@@ -15,7 +15,7 @@ import ShowModeSwitcher from '../components/ShowModeSwitcher';
 export default function AllReleases() {
     const albums = useSelector(selectAllAlbumList);
     const tracks = useSelector(selectTracks);
-    let { publisherSlug, artistSlug, showMode, page, bpmlow, bpmhigh, key, genre, label, artist } = useParams();
+    let { keyword, publisherSlug, artistSlug, showMode, page, bpmlow, bpmhigh, key, genre, label, artist } = useParams();
 
     let title = 'All releases';
     if(publisherSlug){
@@ -23,6 +23,9 @@ export default function AllReleases() {
     }
     if(artistSlug){
         title = albums[0]?.artist.name;
+    }
+    if(keyword){
+        title = 'SEARCH RESULTS';
     }
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
@@ -55,9 +58,9 @@ export default function AllReleases() {
     useEffect(() => {
         
         if (showMode === ShowMode.GRID) {
-            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage, publisherSlug || '', artistSlug || ''));
+            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage, keyword, publisherSlug || '', artistSlug || ''));
         } else {
-            dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, publisherSlug || '', artistSlug || '', bpmlow, bpmhigh, key, genre, label, artist));
+            dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, publisherSlug || '', artistSlug || '', bpmlow, bpmhigh, key, genre, label, artist));
         }
     }, [showMode, publisherSlug, artistSlug, dispatch, currentPage]);
 

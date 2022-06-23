@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import Genres from './pages/Genres';
 import AllReleases from './pages/AllReleases';
 import AlbumPage from './pages/AlbumPage';
-import { requestCategories, requestkeys, requestLabels, requestArtists, setHasDownloadError } from './redux/actions';
+import { requestCategories, requestkeys, setHasDownloadError } from './redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import PremiumPage from './pages/Premium';
 import AccountPage from './pages/Account';
@@ -20,6 +20,8 @@ import { selectDownloadErrorMessage, selectHasDownloadError, selectLoadingState 
 import { LoadingState } from './redux/store';
 import history from './history';
 import SearchPage from './pages/SearchPage';
+import ArtistPage from './pages/ArtistPage';
+import LabelPage from './pages/LabelPage';
 import { environment } from './environments/envrionment';
 import PickedReleases from './pages/PickedReleases';
 
@@ -62,7 +64,7 @@ export default function App() {
       />
       
       {
-        !environment.TEST_MODE && <LoginPage/>
+        environment.TEST_MODE && <LoginPage/>
         
       }
       <Header/>
@@ -86,6 +88,9 @@ export default function App() {
           <Route path="/all-releases/artist/:artistSlug/s/:showMode/p/:page">
             <AllReleases/>
           </Route>
+          <Route path="/all-releases/search/:keyword/s/:showMode/p/:page">
+            <AllReleases/>
+          </Route>
           <Route path="/album/:slug">
             <AlbumPage/>
           </Route>
@@ -100,6 +105,12 @@ export default function App() {
           </Route>
           <Route path="/search/:keyword/p/:page">
             <SearchPage/>
+          </Route>
+          <Route path="/artist/:keyword/p/:page">
+            <ArtistPage/>
+          </Route>
+          <Route path="/label/:keyword/p/:page">
+            <LabelPage/>
           </Route>
           <Route path="/">
             <Home/>

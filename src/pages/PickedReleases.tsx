@@ -20,7 +20,7 @@ interface Props {
 export default function PickedReleases(props: Props) {
   const albums = useSelector(selectAllAlbumList);
   const tracks = useSelector(selectTracks);
-  let { publisherSlug, artistSlug, showMode, page, bpmlow, bpmhigh, key, genre, label, artist } = useParams();
+  let { publisherSlug, artistSlug, showMode, page, bpmlow, bpmhigh, key, genre, label, artist, keyword } = useParams();
   const dispatch = useDispatch();
   const currentPage = useSelector(selectCurrentPage);
   const pageCount = useSelector(selectPageCount);
@@ -48,7 +48,7 @@ export default function PickedReleases(props: Props) {
     if (showMode === ShowMode.GRID) {
       dispatch(requestPickedAlbums(props.type, currentPage * albumCountPerPage, albumCountPerPage, publisherSlug || ''));
   } else {
-      dispatch(requestTracks(props.type, currentPage * trackCountPerPage, trackCountPerPage, publisherSlug || '', artistSlug ||'', bpmlow, bpmhigh, key, genre, label, artist));
+      dispatch(requestTracks(props.type, currentPage * trackCountPerPage, trackCountPerPage, keyword, publisherSlug || '', artistSlug ||'', bpmlow, bpmhigh, key, genre, label, artist));
   }
   }, [showMode, publisherSlug, dispatch, currentPage, props.type]);
 

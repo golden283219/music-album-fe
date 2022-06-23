@@ -43,12 +43,13 @@ interface SetOnTopResponse {
   album: Album;
 }
 
-export const apiFetchTracks = async (pickType: string, skip: number, limit: number, publisherSlug: string, artistSlug: string, title: string, bpmlow: number, bpmhigh: number, key: string, genre: string, label: string, artist: string) => {
+export const apiFetchTracks = async (pickType: string, skip: number, limit: number, keyword: string, publisherSlug: string, artistSlug: string, title: string, bpmlow: number, bpmhigh: number, key: string, genre: string, label: string, artist: string) => {
   if (title === undefined) {
     title = '';
   }
-
-
+  if (keyword === undefined) {
+    keyword = '';
+  }
   if ((bpmlow === undefined) || (Number.isNaN(bpmlow))) {
     bpmlow = 0;
   }
@@ -75,7 +76,7 @@ export const apiFetchTracks = async (pickType: string, skip: number, limit: numb
   }
   label = publisherSlug !== ''?publisherSlug:label;
   artist = artistSlug !== ''?artistSlug:artist;
-  const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?picktype=' + pickType + '&skip=' + skip + '&limit=' + limit + '&publisherslug=' + publisherSlug + '&artistslug=' + artistSlug + '&title=' + title + '&bpmlow=' + bpmlow + '&bpmhigh=' + bpmhigh + '&key=' + key + '&genre=' + genre + '&label=' + label + '&artist=' + artist);
+  const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?picktype=' + pickType + '&skip=' + skip + '&limit=' + limit + '&keyword=' + keyword + '&publisherslug=' + publisherSlug + '&artistslug=' + artistSlug + '&title=' + title + '&bpmlow=' + bpmlow + '&bpmhigh=' + bpmhigh + '&key=' + key + '&genre=' + genre + '&label=' + label + '&artist=' + artist);
   return [result.data.tracks, result.data.trackCount];
 };
 

@@ -13,7 +13,7 @@ import AlbumsGridView from '../components/AlbumsGridView';
 import { Helmet } from 'react-helmet';
 
 export default function GenresPage() {
-    let { slug: categorySlug, showMode, page, bpmlow, bpmhigh, key, genre, artist, label } = useParams();
+    let { slug: categorySlug, showMode, page, bpmlow, bpmhigh, key, genre, artist, label, keyword } = useParams();
     const tracks = useSelector(selectTracks);
     const albums = useSelector(selectAllAlbumList);
     const [category, setCategory] = useState('');
@@ -42,7 +42,7 @@ export default function GenresPage() {
     useEffect(() => {
         if (categorySlug === undefined) {
             dispatch(setShowMode(ShowMode.LIST));
-            dispatch(requestTracks('',currentPage * trackCountPerPage, trackCountPerPage, '', '', bpmlow, bpmhigh, key, genre, label, artist));
+            dispatch(requestTracks('',currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', bpmlow, bpmhigh, key, genre, label, artist));
         } else {
             if (showMode === ShowMode.LIST) {
                 dispatch(requestGenreTracks(categorySlug, currentPage * trackCountPerPage, trackCountPerPage));

@@ -27,8 +27,17 @@ interface DownloadAlbumResponse {
     message: string;
 }
 
-export const apiFetchAllAlbums = async (skip: number, limit: number, publisherSlug: string, artistSlug:string) => {
-    const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS + '?skip='+skip+'&limit='+limit+'&publisher='+publisherSlug+'&artist='+artistSlug);
+export const apiFetchAllAlbums = async (skip: number, limit: number, keyword: string, publisherSlug: string, artistSlug:string) => {
+    if (keyword === undefined) {
+        keyword = '';
+    }
+    if (publisherSlug === undefined) {
+        publisherSlug = '';
+    }
+    if (artistSlug === undefined) {
+        artistSlug = '';
+    }
+    const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS + '?skip='+skip+'&limit='+limit+'&keyword='+keyword+'&publisher='+publisherSlug+'&artist='+artistSlug);
     return [result.data.albums, result.data.albumCount];
 };
 

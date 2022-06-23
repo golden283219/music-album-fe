@@ -257,6 +257,7 @@ export interface RequestAlbumDetail {
 export interface RequestAllAlbums {
     type: ALL_ALBUMS_REQUESTED;
     skip: number;
+    keyword: string;
     limit: number;
     publisherSlug: string;
     artistSlug: string;
@@ -282,6 +283,7 @@ export interface RequestTracks {
     pickType: string; // vinyl or bandcamp
     skip: number;
     limit: number;
+    keyword: string;
     publisherSlug: string;
     artistSlug: string;
     title: string;
@@ -439,12 +441,12 @@ export const setPlayList = (playList: string[]) => ({ type: SET_PLAY_LIST, playL
 export const setPlayStatus = (playStatus: PlayStatus) => ({ type: SET_PLAY_STATUS, playStatus: playStatus });
 export const nextTrack = () => ({ type: NEXT_TRACK });
 export const previousTrack = () => ({ type: PREVIOUS_TRACK });
-export const requestAllAlbums = (skip: number, limit: number, publisherSlug: string, artistSlug: string) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug, artistSlug: artistSlug });
+export const requestAllAlbums = (skip: number, limit: number, keyword: string, publisherSlug: string, artistSlug: string) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit, keyword: keyword, publisherSlug: publisherSlug, artistSlug: artistSlug });
 export const requestPickedAlbums = (type: string, skip: number, limit: number, publisherSlug: string) => ({ type: PICKED_ALBUMS_REQUESTED, pickType: type, skip: skip, limit: limit, publisherSlug: publisherSlug });
 export const requestGenreAlbums = (skip: number, limit: number, category: string) => ({ type: GENRE_ALBUMS_REQUESTED, skip: skip, limit: limit, categorySlug: category });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
-export const requestTracks = (pickType: string, skip: number, limit: number, publisherSlug: string, artistSlug: string, bpmlow: number, bpmhigh: number, key: string, genre: string, label: string, artist: string) => ({ type: TRACKS_REQUESTED, pickType: pickType, skip: skip, limit: limit, publisherSlug: publisherSlug, artistSlug: artistSlug, bpmlow: bpmlow, bpmhigh: bpmhigh, key: key, genre: genre, label:label, artist: artist });
+export const requestTracks = (pickType: string, skip: number, limit: number, keyword: string, publisherSlug: string, artistSlug: string, bpmlow: number, bpmhigh: number, key: string, genre: string, label: string, artist: string) => ({ type: TRACKS_REQUESTED, pickType: pickType, skip: skip, limit: limit, keyword: keyword, publisherSlug: publisherSlug, artistSlug: artistSlug, bpmlow: bpmlow, bpmhigh: bpmhigh, key: key, genre: genre, label:label, artist: artist });
 export const requestPickedTracks = (type: string, skip: number, limit: number, publisherSlug: string) => ({ type: PICKED_TRACKS_REQUESTED, pickType: type, skip: skip, limit: limit, publisherSlug: publisherSlug });
 export const requestGenreTracks = (categorySlug: string, skip: number, limit: number) => ({ type: GENRE_TRACKS_REQUESTED, categorySlug: categorySlug, skip: skip, limit: limit});
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });

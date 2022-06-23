@@ -89,7 +89,7 @@ import { apiFetchUserInfo, apiLogin } from '../api/AuthAPI';
 function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
-        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.publisherSlug, action.artistSlug);
+        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.keyword, action.publisherSlug, action.artistSlug);
         yield put(setAllAlbums(albums));
         yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
         if (albums.length === 0) {
@@ -103,7 +103,6 @@ function* fetchAllAlbums(action: RequestAllAlbums) {
 }
 
 function* fetchPickedAlbums(action: RequestPickedAlbums) {
-    console.log('fetch picked albums');
     try {
         yield put(setLoadingState(LoadingState.LOADING));
         const [albums, albumCount] = yield call(apiFetchPickedAlbums, action.pickType, action.skip, action.limit, action.publisherSlug);
@@ -158,7 +157,7 @@ function* fetchFeaturedAlbums() {
 function* fetchTracks(action: RequestTracks) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
-        const [tracks, trackCount] = yield call(apiFetchTracks, action.pickType, action.skip, action.limit, action.publisherSlug, action.artistSlug, action.title, action.bpmlow, action.bpmhigh, action.key, action.genre, action.label, action.artist);
+        const [tracks, trackCount] = yield call(apiFetchTracks, action.pickType, action.skip, action.limit, action.keyword, action.publisherSlug, action.artistSlug, action.title, action.bpmlow, action.bpmhigh, action.key, action.genre, action.label, action.artist);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {

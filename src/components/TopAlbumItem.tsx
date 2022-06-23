@@ -28,10 +28,14 @@ export default function TopAlbumItem(props: Props) {
                 <div className="title pr-2">
                     <NavLink to={"/album/"+props.album.slug}>{props.album.title}</NavLink>
                 </div>
-                <div className="desc">{props.album.artist.name}</div>
                 <div className="desc">
-                    <NavLink to={`/all-releases/${props.album.publisher.slug}/s/GRID/p/0`} className="genre-link">
-                        { props.album.publisher.name }
+                    <NavLink to={`/all-releases/artist/${props.album.artist != null ? props.album.artist.slug : ''}/s/GRID/p/0`} className="genre-link">
+                        {props.album.artist != null ? props.album.artist.name : '' }
+                    </NavLink>
+                </div>
+                <div className="desc">
+                    <NavLink to={`/all-releases/label/${props.album.publisher != null ? props.album.publisher.slug : ''}/s/GRID/p/0`} className="genre-link">
+                        {props.album.publisher != null ? props.album.publisher.name : '' }
                     </NavLink>
                 </div>
             </div>

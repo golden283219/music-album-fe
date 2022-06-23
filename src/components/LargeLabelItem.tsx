@@ -28,7 +28,9 @@ export default function LargeLabelItem(props: Props) {
             </div>
             <CardBody>
                 <CardTitle>
-                    <NavLink to={`/all-releases/label/${props.label != null ? props.label.slug : ''}/s/GRID/p/0`} className="genre-link">{props.label != null ? props.label.name : '' }</NavLink>
+                    <NavLink to={`/all-releases/label/${props.label != null ? props.label.slug : ''}/s/GRID/p/0`} className="genre-link">
+                        {props.label != null ? props.label.name : '' }
+                    </NavLink>
                 </CardTitle>
             </CardBody>
         </Card>

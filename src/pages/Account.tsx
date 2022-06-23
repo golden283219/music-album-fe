@@ -7,7 +7,7 @@ import { formatSimpleDate } from '../utils';
 export default function AccountPage() {
     const dispatch = useDispatch();
     const userInfo = useSelector(selectUserInfo);
-    const expireDate = new Date(userInfo.expirationDate * 1000);
+    const expireDate = new Date(userInfo.expirationDate);
 
     useEffect(() => {
         dispatch(requestUserInfo());

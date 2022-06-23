@@ -43,32 +43,29 @@ export default function SearchPage() {
 
     return (
         <div className="page">
-            {/* <div className="d-flex justify-content-between">
-                <p className="page-title">{ searchModeValue }</p>
-            </div> */}
             <div className="d-flex justify-content-between">
-                <p className="page-title">RELEASES</p>
-                <a href='/all-releases/s/GRID/p/0' className='view-more'>View All</a>
+                <p className="page-title">SEARCH RESULTS</p>
             </div>
-            <AlbumsGridView albums={albums}/>
             <div className="d-flex justify-content-between">
-                <p className="page-title">TRACKS</p>
-                <a href='/all-releases/s/LIST/p/0' className='view-more'>View All</a>
+                <p className="page-subtitle">RELEASES</p>
+                <a href={`/all-releases/search/${keyword}/s/GRID/p/0`} className='view-more'>View All</a>
             </div>
-            <TracksListView tracks={tracks}/>
+            <AlbumsGridView albums={albums.length > 6 ?albums.slice(0, 5): albums}/>
             <div className="d-flex justify-content-between">
-                <p className="page-title">ARTISTS</p>
-                <a className='view-more'>View All</a>
+                <p className="page-subtitle">TRACKS</p>
+                <a href={`/all-releases/search/${keyword}/s/LIST/p/0`} className='view-more'>View All</a>
             </div>
-            <ArtistsGridView artists={artists}/>
+            <TracksListView tracks={tracks.length > 6 ?tracks.slice(0, 5): tracks}/>
             <div className="d-flex justify-content-between">
-                <p className="page-title">LABELS</p>
-                <a className='view-more'>View All</a>
+                <p className="page-subtitle">ARTISTS</p>
+                <a href={`/artist/${keyword}/p/0`} className='view-more'>View All</a>
             </div>
-            <LabelsGridView labels={labels}/>
-            < div className="d-flex justify-content-center align-items-center">
-                <AlbumPagination/>
+            <ArtistsGridView artists={artists.length > 6 ?artists.slice(0, 5): artists}/>
+            <div className="d-flex justify-content-between">
+                <p className="page-subtitle">LABELS</p>
+                <a href={`/label/${keyword}/p/0`} className='view-more'>View All</a>
             </div>
+            <LabelsGridView labels={labels.length > 6 ?labels.slice(0, 5): labels}/>
         </div>
     );
 }

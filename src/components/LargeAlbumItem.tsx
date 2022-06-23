@@ -49,10 +49,14 @@ export default function LargeAlbumItem(props: Props) {
             <CardBody>
                 <CardTitle><NavLink to={ '/album/' + props.album.slug } className="genre-link">{ props.album.title.replace('&amp;', '&') }</NavLink></CardTitle>
                 <CardSubtitle>
-                    <NavLink to={`/all-releases/artist/${props.album.artist != null ? props.album.artist.slug : ''}/s/GRID/p/0`} className="genre-link">{props.album.artist != null ? props.album.artist.name : '' }</NavLink>
+                    <NavLink to={`/all-releases/artist/${props.album.artist != null ? props.album.artist.slug : ''}/s/GRID/p/0`} className="genre-link">
+                        {props.album.artist != null ? props.album.artist.name : '' }
+                    </NavLink>
                 </CardSubtitle>
                 <CardText>
-                    <NavLink to={`/all-releases/label/${props.album.publisher != null ? props.album.publisher.slug : ''}/s/GRID/p/0`} className="genre-link">{props.album.publisher != null ? props.album.publisher.name : '' }</NavLink>
+                    <NavLink to={`/all-releases/label/${props.album.publisher != null ? props.album.publisher.slug : ''}/s/GRID/p/0`} className="genre-link">
+                        {props.album.publisher != null ? props.album.publisher.name : '' }
+                    </NavLink>
                 </CardText>
             </CardBody>
         </Card>

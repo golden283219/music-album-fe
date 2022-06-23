@@ -74,7 +74,7 @@ export function Header() {
                 </div>
                 <div className="d-flex align-items-center">
                     <NavLink to="/premium" activeClassName="active">Premium</NavLink>
-                    { !environment.TEST_MODE && <NavLink to="/account" activeClassName="active">Account</NavLink> }
+                    { environment.TEST_MODE && <NavLink to="/account" activeClassName="active">Account</NavLink> }
                     <NavLink to="/contact" activeClassName="active">Contact</NavLink>
                     {loggedIn?
                     <div className="genre-link" onClick={() => {

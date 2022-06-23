@@ -1,5 +1,5 @@
 import { Button, Col, Input, Row, Label } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { ShowMode } from '../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +27,7 @@ interface Props {
 
 
 export default function ShowModeSwitcher(props: Props) {
+    let { keyword } = useParams();
     const showMode = useSelector(selectShowMode);
     const categories = useSelector(selectCategories);
     const keys = useSelector(selectKeys);
@@ -55,13 +56,13 @@ export default function ShowModeSwitcher(props: Props) {
 
     const onApplyBPM = () => {
 
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
     }
 
     const onResetBPM = () => {
         setBPMLow('');
         setBPMHigh('');
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
     }
 
     const [selectedKeys, setSelectedKeys] = useState(new Array());
@@ -88,13 +89,13 @@ export default function ShowModeSwitcher(props: Props) {
     }
 
     const onApplyKey = () => {
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
     }
 
     const onResetKey = () => {
         setKey(new Array(keys.length).fill(false));
         setSelectedKeys(new Array());
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), '', selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), '', selectedGenres.toString(), label, artist));
     }
 
     const [selectedGenres, setSelectedGenres] = useState(new Array());
@@ -121,13 +122,13 @@ export default function ShowModeSwitcher(props: Props) {
     }
 
     const onApplyGenre = () => {
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
     }
 
     const onResetGenre = () => {
         setGenre(new Array(categories.length).fill(false));
         setSelectedGenres(new Array());
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), '', label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), '', label, artist));
     }
 
     const [artist, setArtist] = useState('');
@@ -137,12 +138,12 @@ export default function ShowModeSwitcher(props: Props) {
     }
 
     const onApplyArtist = () => {
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
     }
 
     const onResetArtist = () => {
         setArtist('');
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, ''));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, ''));
     }
 
     const [label, setLabel] = useState('');
@@ -151,12 +152,12 @@ export default function ShowModeSwitcher(props: Props) {
         
     }
     const onApplyLabel = () => {
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), label, artist));
     }
 
     const onResetLabel = () => {
         setLabel('');
-        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), '', artist));
+        dispatch(requestTracks('', currentPage * trackCountPerPage, trackCountPerPage, keyword, '', '', Number.parseInt(bpmlow), Number.parseInt(bpmhigh), selectedKeys.toString(), selectedGenres.toString(), '', artist));
     }
     let categoryLinks: JSX.Element[] = [];
     

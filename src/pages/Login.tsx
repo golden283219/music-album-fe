@@ -21,15 +21,14 @@ export default function LoginPage() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      console.log("Log in");
       dispatch(setLoggedIn(true));
-      // const tokenDecoded = jwt_decode<Token>(token);
-      // if (Date.now() <= tokenDecoded.exp * 1000) {
-      //   dispatch(requestUserInfo());
-      //   dispatch(setLoggedIn(true));
-      // } else {
-      //   dispatch(setLoggedIn(false));
-      // }
+      const tokenDecoded = jwt_decode<Token>(token);
+      if (Date.now() <= tokenDecoded.exp * 1000) {
+        dispatch(requestUserInfo());
+        dispatch(setLoggedIn(true));
+      } else {
+        dispatch(setLoggedIn(false));
+      }
     }
   }, []);
 
