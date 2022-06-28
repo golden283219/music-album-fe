@@ -10,7 +10,7 @@ export interface Track {
     slug: string;
     filesize: number;
     mp3_size: number;
-    flac_size: number;
+    aiff_size: number;
     duration: number;
     album: Album;
     category: Category;

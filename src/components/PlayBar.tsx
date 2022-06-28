@@ -204,7 +204,7 @@ export default function PlayBar() {
         </div>
         <div className="d-flex">
           <TrackDownloadButton track={track} type={MusicFileType.MP3} className="mx-2"/>
-          <TrackDownloadButton track={track} type={MusicFileType.FLAC} className="mx-2"/>
+          <TrackDownloadButton track={track} type={MusicFileType.AIFF} className="mx-2"/>
         </div>
       </div>
     </div>

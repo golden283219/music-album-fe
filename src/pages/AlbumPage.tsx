@@ -98,7 +98,7 @@ export default function AlbumPage() {
           <div className="pb-2 flex-wrap">Genres: {genres}</div>
           <div className="d-flex">
             <AlbumDownloadButton type={MusicFileType.MP3} album={album} className="mr-2"/>
-            <AlbumDownloadButton type={MusicFileType.FLAC} album={album}/>
+            <AlbumDownloadButton type={MusicFileType.AIFF} album={album}/>
             <div className="flex-grow-1"/>
           </div>
           {userInfo.admin === 1 &&

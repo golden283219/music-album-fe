@@ -64,7 +64,7 @@ export default function App() {
       />
       
       {
-        environment.TEST_MODE && <LoginPage/>
+        !environment.TEST_MODE && <LoginPage/>
         
       }
       <Header/>

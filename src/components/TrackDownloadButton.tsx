@@ -18,8 +18,8 @@ export default function TrackDownloadButton(props: Props) {
     let fileSize: number = -1;
     const dispatch = useDispatch();
     if (props.track) {
-        fileSize = props.type === MusicFileType.FLAC ?
-            props.track.flac_size :
+        fileSize = props.type === MusicFileType.AIFF ?
+            props.track.aiff_size :
             props.track.mp3_size;
     }
     const label = environment.TEST_MODE ? `.${props.type}` : `.${props.type} (${formatFileSize(fileSize)})`;
